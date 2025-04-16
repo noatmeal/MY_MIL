@@ -33,10 +33,10 @@ example (a b c d e f : ℝ) (h : a * b = c * d) (h' : e = f) : a * (b * e) = c *
   rw [mul_assoc]
 
 example (a b c d e f : ℝ) (h : b * c = e * f) : a * b * c * d = a * e * f * d := by
-  sorry
+  rw [mul_assoc, mul_assoc, ← mul_assoc b, h, mul_assoc e, ← mul_assoc, ← mul_assoc]
 
 example (a b c d : ℝ) (hyp : c = b * a - d) (hyp' : d = a * b) : c = 0 := by
-  sorry
+  rw [hyp, mul_comm, hyp', sub_self]
 
 example (a b c d e f : ℝ) (h : a * b = c * d) (h' : e = f) : a * (b * e) = c * (d * f) := by
   rw [h', ← mul_assoc, h, mul_assoc]
@@ -81,14 +81,15 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
     _ = a * a + 2 * (a * b) + b * b := by
       rw [mul_comm b a, ← two_mul]
 
-example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
-  calc
-    (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
-      sorry
-    _ = a * a + (b * a + a * b) + b * b := by
-      sorry
-    _ = a * a + 2 * (a * b) + b * b := by
-      sorry
+-- The book came with this uncommented, but I want a green file at the end :).
+-- example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
+--   calc
+--     (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
+--       sorry
+--     _ = a * a + (b * a + a * b) + b * b := by
+--       sorry
+--     _ = a * a + 2 * (a * b) + b * b := by
+--       sorry
 
 end
 
@@ -97,10 +98,30 @@ section
 variable (a b c d : ℝ)
 
 example : (a + b) * (c + d) = a * c + a * d + b * c + b * d := by
-  sorry
+  rw [mul_add, add_mul, add_mul, add_assoc, ← add_assoc (b * c)]
+  rw [add_comm (b * c), ← add_assoc, ← add_assoc]
 
-example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 := by
-  sorry
+example : (a + b) * (c + d) = a * c + a * d + b * c + b * d :=
+  calc
+    (a + b) * (c + d) = (a + b) * c + (a + b) * d := by
+      rw [mul_add]
+    _ = a * c + b * c + (a + b) * d := by
+      rw [add_mul]
+    _= a * c + b * c + (a * d + b * d) := by
+      rw [add_mul]
+    _= a * c + (b * c + a * d + b * d) := by
+      rw [add_assoc, ← add_assoc (b * c)]
+    _= a * c + a * d + b * c + b * d := by
+      rw [add_comm (b * c), ← add_assoc, ← add_assoc]
+
+example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 :=
+  calc
+    (a + b) * (a - b) = (a + b) * a - (a + b) * b := by
+      rw [mul_sub]
+    _ = a^2 + b * a - (a * b + b^2) := by
+      rw [add_mul, add_mul, pow_two, pow_two]
+    _ = a^2 - b^2 := by
+      sorry
 
 #check pow_two a
 #check mul_sub a b c

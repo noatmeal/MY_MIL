@@ -120,8 +120,10 @@ example (a b : ℝ) : (a + b) * (a - b) = a ^ 2 - b ^ 2 :=
       rw [mul_sub]
     _ = a^2 + b * a - (a * b + b^2) := by
       rw [add_mul, add_mul, pow_two, pow_two]
+    _ = a^2 + (a * b - a * b) - b^2 := by
+      rw [← sub_sub, ← add_sub (a^2) (b * a) ( a * b), mul_comm]
     _ = a^2 - b^2 := by
-      sorry
+      rw [sub_self, add_zero]
 
 #check pow_two a
 #check mul_sub a b c

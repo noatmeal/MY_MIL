@@ -140,13 +140,17 @@ variable {G : Type*} [Group G]
 namespace MyGroup
 
 theorem mul_inv_cancel (a : G) : a * a⁻¹ = 1 := by
-  sorry
+  have h : (a * a⁻¹)⁻¹ * ((a * a⁻¹) * (a * a⁻¹)) = 1 := by
+    rw [mul_assoc, ← mul_assoc a⁻¹ a, inv_mul_cancel, one_mul, inv_mul_cancel]
+  rw [← h, ← mul_assoc, inv_mul_cancel, one_mul]
 
 theorem mul_one (a : G) : a * 1 = a := by
-  sorry
+  rw [← inv_mul_cancel a, ← mul_assoc, mul_inv_cancel, one_mul]
 
 theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
-  sorry
+  have h : (b⁻¹ * a⁻¹) * ((a * b) * (a * b)⁻¹) = (a * b)⁻¹ := by
+    rw [← mul_assoc, ← mul_assoc, mul_assoc b⁻¹, inv_mul_cancel, mul_one, inv_mul_cancel, one_mul]
+  rw [← h, mul_inv_cancel, mul_one]
 
 end MyGroup
 

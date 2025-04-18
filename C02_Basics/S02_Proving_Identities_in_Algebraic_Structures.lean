@@ -152,6 +152,14 @@ theorem mul_inv_rev (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by
     rw [← mul_assoc, ← mul_assoc, mul_assoc b⁻¹, inv_mul_cancel, mul_one, inv_mul_cancel, one_mul]
   rw [← h, mul_inv_cancel, mul_one]
 
+-- Wow this is really nice.
+
+theorem mul_inv_cancel_by_group_tactic (a : G) : a * a⁻¹ = 1 := by group
+
+theorem mul_one_alt_by_group_tactic (a : G) : a * 1 = a := by group
+
+theorem mul_inv_rev_alt_by_group_tactic (a b : G) : (a * b)⁻¹ = b⁻¹ * a⁻¹ := by group
+
 end MyGroup
 
 end

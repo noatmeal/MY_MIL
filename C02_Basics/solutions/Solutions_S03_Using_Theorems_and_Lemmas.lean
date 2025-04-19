@@ -9,6 +9,55 @@ example (h₀ : a ≤ b) (h₁ : b < c) (h₂ : c ≤ d) (h₃ : d < e) : a < e 
   apply lt_trans h₁
   exact lt_of_le_of_lt h₂ h₃
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 example (h₀ : d ≤ e) : c + exp (a + d) ≤ c + exp (a + e) := by
   apply add_le_add_left
   rw [exp_le_exp]
@@ -57,4 +106,3 @@ example : |a*b| ≤ (a^2 + b^2)/2 := by
     apply fact1
   rw [le_div_iff₀ h]
   apply fact2
-
